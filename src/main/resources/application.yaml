@@ -1,3 +1,4 @@
+spring.jpa.defer-datasource-initialization: true
 #  https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 spring:
   jpa:
@@ -27,4 +28,7 @@ spring:
     username: sa
     password:
   h2.console.enabled: true
-spring.jpa.defer-datasource-initialization: true
+  data.rest:
+    #  https://docs.spring.io/spring-data/rest/docs/current/reference/html/#getting-started.basic-settings
+    basePath: /api
+    returnBodyOnCreate: true
