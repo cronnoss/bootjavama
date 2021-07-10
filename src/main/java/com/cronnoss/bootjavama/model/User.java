@@ -1,6 +1,10 @@
 package com.cronnoss.bootjavama.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.*;
+import org.springframework.util.StringUtils;
+import com.cronnoss.bootjavama.util.JsonDeserializers;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -34,6 +38,8 @@ public class User extends BaseEntity implements Serializable {
     private String lastName;
 
     @Column(name = "password")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonDeserialize(using = JsonDeserializers.PasswordDeserializer.class)
     @Size(max = 256)
     private String password;
 
@@ -42,4 +48,8 @@ public class User extends BaseEntity implements Serializable {
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
+
+    public void setEmail(String email) {
+        this.email = StringUtils.hasText(email) ? email.toLowerCase() : null;
+    }
 }
