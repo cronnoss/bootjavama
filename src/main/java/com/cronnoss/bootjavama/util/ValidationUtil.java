@@ -2,7 +2,9 @@ package com.cronnoss.bootjavama.util;
 
 import com.cronnoss.bootjavama.error.IllegalRequestDataException;
 import com.cronnoss.bootjavama.model.BaseEntity;
+import lombok.experimental.UtilityClass;
 
+@UtilityClass
 public class ValidationUtil {
 
     public static void checkNew(BaseEntity entity) {
