@@ -1,16 +1,18 @@
 package com.cronnoss.bootjavama.model;
 
+import com.cronnoss.bootjavama.util.JsonDeserializers;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.*;
 import org.springframework.util.StringUtils;
-import com.cronnoss.bootjavama.util.JsonDeserializers;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.EnumSet;
 import java.util.Set;
 
 @Entity
@@ -22,6 +24,10 @@ import java.util.Set;
 
 @ToString(callSuper = true, exclude = {"password"})
 public class User extends BaseEntity implements Serializable {
+    public User(Integer id, String email, String firstName, String lastName, String password, Collection<Role> roles) {
+        this(email, firstName, lastName, password, EnumSet.copyOf(roles));
+        this.id = id;
+    }
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
